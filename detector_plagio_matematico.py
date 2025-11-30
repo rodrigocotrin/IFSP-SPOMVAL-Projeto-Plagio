@@ -217,7 +217,22 @@ def main():
     # 3. Vetorização
     vetores = [gerar_vetor_tfidf(d, docs_proc, vocab) for d in docs_proc]
 
-    # 4. Resultados
+    # 4. As 5 palavras mais frequentes de cada texto
+    print("\n" + "="*80)
+    print(f"{'TOP 5 PALAVRAS RELEVANTES (TF-IDF)':^80}")
+    print("="*80)
+    
+    for i, doc_vetor in enumerate(vetores):
+        # Cria pares (score, palavra)
+        pares = zip(doc_vetor, vocab)
+        # Ordena do maior score para o menor
+        top_5 = sorted(pares, key=lambda x: x[0], reverse=True)[:5]
+        
+        termos_formatados = [f"{termo} ({score:.4f})" for score, termo in top_5]
+        print(f"\n>> {labels[i]}:")
+        print(f"   {', '.join(termos_formatados)}")
+
+    # 5. Resultados
     print("\n" + "="*80)
     print(f"{'RESULTADOS MATEMÁTICOS':^80}")
     print("="*80)
